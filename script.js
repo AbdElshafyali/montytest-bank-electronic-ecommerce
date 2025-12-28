@@ -407,16 +407,6 @@ function handleWrongAnswer(question, answerIndex) {
     }
 }
 
-function nextQuestion() {
-    currentQuestion++;
-
-    if (currentQuestion < quizData.length) {
-        displayQuestion();
-    } else {
-        showResults();
-    }
-}
-
 function showResults() {
     quizCard.style.display = 'none';
     resultsCard.style.display = 'block';
