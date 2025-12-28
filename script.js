@@ -277,32 +277,45 @@ function displayCurrentQuestion(question) {
         : `سؤال ${currentQuestionIndex + 1} من ${quizData.length}`;
 }
 
-function selectAnswer(answerIndex) {
-    if (selectedAnswer !== null) return; // Prevent multiple selections
+function selectAnswer(answerIndex, selectedButton) {
+    if (isAnswered) return;
 
     selectedAnswer = answerIndex;
     const question = quizData[currentQuestionIndex];
-    const answerButtons = document.querySelectorAll('.answer-option');
+    const answerButtons = document.querySelectorAll('.answer-button');
 
     // Disable all buttons
-    answerButtons.forEach(btn => btn.classList.add('disabled'));
+    answerButtons.forEach(btn => {
+        btn.classList.add('disabled');
+        btn.style.pointerEvents = 'none';
+    });
 
     // Mark selected answer
-    answerButtons[answerIndex].classList.add('selected');
+    selectedButton.classList.add('selected');
 
-    // Check if correct
-    const isCorrect = answerIndex === question.correctAnswer;
+    // Check if answer is correct
+    isAnswered = true;
+    if (answerIndex === question.correctAnswer) {
+        handleCorrectAnswer(question);
+        selectedButton.classList.remove('selected');
+        selectedButton.classList.add('correct');
+    } else {
+        handleWrongAnswer(question, answerIndex);
+        selectedButton.classList.remove('selected');
+        selectedButton.classList.add('wrong');
 
-    setTimeout(() => {
-        if (isCorrect) {
-            handleCorrectAnswer(answerButtons[answerIndex]);
-        } else {
-            handleWrongAnswer(answerButtons[answerIndex], answerButtons[question.correctAnswer]);
+        // Also highlight the correct answer
+        const correctButton = answerButtons[question.correctAnswer];
+        if (correctButton) {
+            correctButton.classList.add('correct');
         }
-    }, 300);
+    }
+
+    // Show next button
+    document.getElementById('next-button').style.display = 'flex';
 }
 
-function handleCorrectAnswer(selectedButton) {
+function handleCorrectAnswer(question) {
     correctCount++;
     correctCountEl.textContent = correctCount;
 

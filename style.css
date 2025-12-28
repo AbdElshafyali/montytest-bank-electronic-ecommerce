@@ -298,7 +298,7 @@ body.dark-mode .theme-icon {
     margin-bottom: 20px;
 }
 
-.answer-option {
+.answer-button {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
     border: 3px solid transparent;
     padding: 20px 25px;
@@ -312,7 +312,7 @@ body.dark-mode .theme-icon {
     box-shadow: var(--shadow-sm);
 }
 
-.answer-option::before {
+.answer-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -323,38 +323,38 @@ body.dark-mode .theme-icon {
     transition: left 0.5s;
 }
 
-.answer-option:hover::before {
+.answer-button:hover::before {
     left: 100%;
 }
 
-.answer-option:hover {
+.answer-button:hover {
     transform: translateX(-5px);
     box-shadow: var(--shadow-md);
     border-color: rgba(102, 126, 234, 0.3);
 }
 
-.answer-option.selected {
+.answer-button.selected {
     background: var(--primary-gradient);
     color: white;
     border-color: #667eea;
     box-shadow: var(--shadow-md);
 }
 
-.answer-option.correct {
+.answer-button.correct {
     background: var(--success-gradient);
     color: white;
     border-color: #11998e;
     animation: correctPulse 0.6s ease;
 }
 
-.answer-option.wrong {
+.answer-button.wrong {
     background: var(--error-gradient);
     color: white;
     border-color: #eb3349;
     animation: wrongShake 0.6s ease;
 }
 
-.answer-option.disabled {
+.answer-button.disabled {
     pointer-events: none;
     opacity: 0.7;
 }
@@ -687,7 +687,7 @@ body.dark-mode .explanation-box {
         font-size: 1.2rem;
     }
 
-    .answer-option {
+    .answer-button {
         font-size: 1rem;
         padding: 15px 20px;
     }
