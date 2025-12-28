@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 بنك الأسئلة - منتي</title>
+    <meta name="description" content="بنك أسئلة تفاعلي للتدريب والاختبار">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Celebration Canvas -->
+    <canvas id="celebration-canvas"></canvas>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <button class="theme-toggle" id="theme-toggle" title="تغيير الإضاءة">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <h1 class="title">
+                    <span class="icon">🎓</span>
+                    بنك الأسئلة
+                    <span class="subtitle">لمنتي المتميزة 💖</span>
+                </h1>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">السؤال 1 من 10</div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score-display">
+            <div class="score-item correct-score">
+                <span class="score-icon">✅</span>
+                <span class="score-label">إجابات صحيحة:</span>
+                <span class="score-value" id="correct-count">0</span>
+            </div>
+            <div class="score-item wrong-score">
+                <span class="score-icon">❌</span>
+                <span class="score-label">إجابات خاطئة:</span>
+                <span class="score-value" id="wrong-count">0</span>
+            </div>
+        </div>
+
+        <!-- Quiz Card -->
+        <div class="quiz-card" id="quiz-card">
+            <div class="question-container">
+                <h2 class="question-text" id="question-text"></h2>
+            </div>
+
+            <div class="answers-container" id="answers-container">
+                <!-- Answers will be inserted here dynamically -->
+            </div>
+
+            <div class="feedback-container" id="feedback-container">
+                <!-- Feedback will appear here -->
+            </div>
+
+            <button class="next-button" id="next-button" style="display: none;">
+                السؤال التالي
+                <span class="arrow">←</span>
+            </button>
+        </div>
+
+        <!-- Final Results -->
+        <div class="results-card" id="results-card" style="display: none;">
+            <div class="results-content">
+                <h2 class="results-title">🎉 رائعة يا منتي! 🎉</h2>
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <div class="result-icon">✅</div>
+                        <div class="result-label">إجابات صحيحة</div>
+                        <div class="result-value" id="final-correct">0</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-icon">❌</div>
+                        <div class="result-label">إجابات خاطئة</div>
+                        <div class="result-value" id="final-wrong">0</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-icon">📊</div>
+                        <div class="result-label">النسبة المئوية</div>
+                        <div class="result-value" id="final-percentage">0%</div>
+                    </div>
+                </div>
+                <div class="final-message" id="final-message"></div>
+                <button class="restart-button" id="restart-button">
+                    🔄 ابدأي من جديد
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Load Question Files First -->
+    <script src="questions-part1.js"></script>
+    <script src="questions-part2.js"></script>
+    <script src="questions-mcq1.js"></script>
+    <script src="questions-mcq2.js"></script>
+
+    <!-- Then Load Main Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
