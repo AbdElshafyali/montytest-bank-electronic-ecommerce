@@ -319,8 +319,12 @@ function handleCorrectAnswer(question) {
     correctCount++;
     correctCountEl.textContent = correctCount;
 
-    selectedButton.classList.remove('selected');
-    selectedButton.classList.add('correct');
+    // إذا كان هذا سؤال مراجعة وتمت الإجابة عليه بشكل صحيح، احذفه من قائمة المراجعة
+    if (question.isRetry) {
+        // نجح في المراجعة! لا حاجة لإعادته مرة أخرى
+        const questionId = question.originalData.questionId;
+        wrongAnswers = wrongAnswers.filter(item => item.questionId !== questionId);
+    }
 
     // Show success feedback
     const randomSuccess = successMessages[Math.floor(Math.random() * successMessages.length)];
@@ -335,22 +339,15 @@ function handleCorrectAnswer(question) {
     // Start confetti celebration
     startConfetti();
 
-    // Show next button
-    nextButton.style.display = 'flex';
-
     // Stop confetti after 3 seconds
     setTimeout(() => {
         stopConfetti();
     }, 3000);
 }
 
-function handleWrongAnswer(selectedButton, correctButton) {
+function handleWrongAnswer(question, answerIndex) {
     wrongCount++;
     wrongCountEl.textContent = wrongCount;
-
-    selectedButton.classList.remove('selected');
-    selectedButton.classList.add('wrong');
-    correctButton.classList.add('correct');
 
     // الحصول على رسالة تشجيع عشوائية
     const encouragement = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
@@ -372,7 +369,6 @@ function handleWrongAnswer(selectedButton, correctButton) {
     }
 
     // عرض التغذية الراجعة
-    const feedbackContainer = document.getElementById('feedback-container');
     feedbackContainer.innerHTML = `
         <div class="feedback wrong">
             <div class="feedback-icon">❌</div>
@@ -409,9 +405,6 @@ function handleWrongAnswer(selectedButton, correctButton) {
         }
         // إذا وصل للحد الأقصى، لا نعيده مرة أخرى
     }
-
-    // Show next button
-    nextButton.style.display = 'flex';
 }
 
 function nextQuestion() {
@@ -456,10 +449,16 @@ function showResults() {
 }
 
 function restartQuiz() {
-    currentQuestion = 0;
+    currentQuestionIndex = 0;
     correctCount = 0;
     wrongCount = 0;
     selectedAnswer = null;
+    isAnswered = false;
+
+    // Reset retry system
+    wrongAnswers = [];
+    wrongAnswerRetryCount = {};
+    questionsAsked = 0;
 
     correctCountEl.textContent = '0';
     wrongCountEl.textContent = '0';
